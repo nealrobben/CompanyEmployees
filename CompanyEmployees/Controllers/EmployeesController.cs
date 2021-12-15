@@ -30,6 +30,7 @@ namespace CompanyEmployees.Controllers
         }
 
         [HttpGet]
+        [HttpHead]
         public async Task<IActionResult> GetEmployeesForCompany(Guid companyId, [FromQuery] EmployeeParameters employeeParameters)
         {
             if (!employeeParameters.ValidAgeRange)
@@ -52,6 +53,7 @@ namespace CompanyEmployees.Controllers
         }
 
         [HttpGet("{id}", Name = "GetEmployeeForCompany")]
+        [HttpHead]
         public async Task<IActionResult> GetEmployeeForCompany(Guid companyId, Guid id)
         {
             var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false);
@@ -153,6 +155,13 @@ namespace CompanyEmployees.Controllers
             await _repository.SaveAsync();
 
             return NoContent();
+        }
+
+        [HttpOptions]
+        public IActionResult GetEmployeesOptions()
+        {
+            Response.Headers.Add("Allow", "GET, OPTIONS, POST");
+            return Ok();
         }
     }
 }
