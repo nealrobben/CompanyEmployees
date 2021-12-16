@@ -47,6 +47,9 @@ namespace CompanyEmployees
 
             services.ConfigureResponseCaching();
 
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
@@ -92,6 +95,7 @@ namespace CompanyEmployees
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
