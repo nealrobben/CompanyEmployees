@@ -4,6 +4,7 @@ using CompanyEmployees.ModelBinders;
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace CompanyEmployees.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         [HttpHead]
         public async Task<IActionResult> GetCompanies()
